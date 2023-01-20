@@ -1,0 +1,169 @@
+<%- include('layouts/checkoutheader') %>
+    
+        
+	<!-- checkout page -->
+    <% if(typeof cart !== "undefined") { %>
+        <div class="privacy py-sm-5 py-4">
+            <div class="container py-xl-4 py-lg-2">
+                <!-- tittle heading -->
+                <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+                    <span>C</span>heckout
+                </h3>
+                <!-- //tittle heading -->
+                <div class="checkout-right">
+                    <h4 class="mb-sm-4 mb-3">Your shopping cart contains:
+                        <span><%= cart.length %> Products</span>
+                    </h4>
+                    <div class="table-responsive">
+                        <table class="timetable_sub">
+                            <thead>
+                                <tr>
+                                    <!-- <th>SL No.</th> -->
+                                    <th>Product</th>
+                                    <th>Quality</th>
+                                    <th>Product Name</th>
+
+                                    <th>Price</th>
+                                    <th>Sub total</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% let total = 0; %>
+                                <!-- <% let total2 = 0; %> -->
+
+                                <% cart.forEach(function(product) { %>
+
+                                    <!-- working on getting the sub: i.e getting the total price of a product if 2 or more same product title were added -->
+                                        <% let sub = parseFloat(product.qty * product.price).toFixed(2) %>
+                                    
+                                        <% let sub2 = parseFloat(product.qty * product.discount_price).toFixed(2) %>
+
+                                        <% if(sub && sub2 === "NaN") { %>
+                                            <% total += +sub, sub2 %>
+                                        <% } else { %>
+                                            <% total += +sub2 %>
+                                        <% } %> 
+                                        
+                                    <tr class="rem1">
+                                        <!-- <td class="invert"></td> -->
+                                        <td class="invert-image">
+                                            <span>
+                                                <img src="<%= product.image %>" alt="" class="img-responsive">
+                                            </span>   
+                                        </td>
+                                        <td class="invert">
+                                            <div class="quantity">
+                                                <div class="quantity-select">
+
+                                                    <a href="/cart/update/<%=product.title %>?action=remove">
+                                                        <div class="entry value-minus">&nbsp;</div>
+                                                    </a>
+                                                    
+                                                    <div class="entry value">
+                                                        <span style="color: #000;"><%= product.qty %></span>
+                                                    </div>
+
+                                                    <a href="/cart/update/<%=product.title %>?action=add">
+                                                        <div class="entry value-plus active">&nbsp;</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="invert"><%= product.title %></td>
+                                        <td class="invert">
+                                            <% if(product.discount_price == "NaN") { %>
+                                                $<%= product.price %>
+                                            <% } else { %>
+                                                $<%= product.discount_price %>
+                                            <% } %>
+                                        </td>
+                                        <td>
+                                            <% if(product.discount_price == "NaN") { %>
+                                                $<%= sub %>
+                                            <% } else { %>
+                                                $<%= sub2 %>
+                                            <% } %>
+
+                                        </td>
+                                        <td class="invert">
+                                            <div class="rem">
+                                                <a href="/cart/update/<%=product.title %>?action=clear">
+                                                    <div class="close1"> </div>
+                                                </a>       
+                                            </div>
+                                        </td>
+                                        
+                                    </tr>
+                                <% }) %>
+                                <tr>
+                                    <td colspan="6" align="right"><b>Total:</b>
+                                        
+                                        <span class="cart-total-price">$<%= parseFloat(total).toFixed(2) %> </span>
+                                    </td> 
+
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="clearcart" colspan="6">
+                                        <a class="btn btn-danger" href="/cart/clear">Clear cart</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="checkout-left">
+                    <div class="address_form_agile mt-sm-5 mt-4">
+                        <div class="checkout-right-basket">
+                            <a href="/home/payment">Make a Payment
+                                <span class="far fa-hand-point-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } else { %> 
+        <h3 class="text-center"> Your cart is empty.</h3>
+    <% } %>
+	<!-- //checkout page -->
+
+	<!-- middle section -->
+	<div class="join-w3l1 py-sm-5 py-4">
+		<div class="container py-xl-4 py-lg-2">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="join-agile text-left p-4">
+						<div class="row">
+							<div class="col-sm-7 offer-name">
+								<h6>Smooth, Rich & Loud Audio</h6>
+								<h4 class="mt-2 mb-3">Branded Headphones</h4>
+								<p>Sale up to 25% off all in store</p>
+							</div>
+							<div class="col-sm-5 offerimg-w3l">
+								<img src="/images/off1.png" alt="" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 mt-lg-0 mt-5">
+					<div class="join-agile text-left p-4">
+						<div class="row ">
+							<div class="col-sm-7 offer-name">
+								<h6>A Bigger Phone</h6>
+								<h4 class="mt-2 mb-3">Smart Phones 5</h4>
+								<p>Free shipping order over $100</p>
+							</div>
+							<div class="col-sm-5 offerimg-w3l">
+								<img src="/images/off2.png" alt="" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- middle section -->
+
+	<%- include('layouts/footer') %>

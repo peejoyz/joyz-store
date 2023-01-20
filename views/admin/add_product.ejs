@@ -1,0 +1,88 @@
+
+<%- include('../layouts/adminheader') %>
+
+<h3 class="page-title">Add a product</h3>
+<a href="/admin/products" class="btn btn-md btn-primary">Back to all products</a>
+<br><br>
+
+<form method="post" action="/admin/products/add-product" enctype="multipart/form-data" style="margin-bottom: 2em;">
+
+   <div class="form-group">
+       <label for="">Full Title</label>
+       <input type="text" class="form-control" name="full_title" value="<%= full_title %>" placeholder="full product name">
+   </div>
+
+   <div class="form-group">
+       <label for="">Title</label>
+       <input type="text" class="form-control" name="title" value="<%= title %>" placeholder="Title">
+   </div>
+
+   <div class="form-group">
+       <label for="Description">Description</label>
+       <textarea  class="form-control" id="editor" cols="20" rows="5" name="desc" placeholder="Description"><%= desc %></textarea>
+   </div>
+
+   <div class="form-group">
+       <label for="Category">Category</label>
+       <select name="category" class="form-control">
+           <!--Looping through all categories i have -->
+           <% categories.forEach(function(cat) { %>
+               <option value="<%= cat.slug %>"><%= cat.title %></option>
+           <% }); %>
+       </select>
+   </div>
+
+   <div class="form-group">
+       <label for="">Price</label>
+       <input type="text" class="form-control" name="price" value="<%= price %>" placeholder="Price">
+   </div>
+
+   <div class="form-group">
+       <label for="">Discount Price</label>
+       <input type="text" class="form-control" name="discount_price" value="">
+   </div>
+
+   <div class="form-group">
+       <label for="">Discount Percentage</label>
+       <input type="text" class="form-control" name="discount_percentage" value="">
+   </div>
+
+    <div class="form-group">
+        <label for="">Ratings</label>
+        <input type="text" class="form-control" name="ratings" value="">
+    </div>
+
+    <div class="form-group">
+        <label for="">Rated By</label>
+        <input type="text" class="form-control" name="rated_by" value="">
+    </div>
+
+   <div class="form-group">
+       <label for="">Image</label>
+       <input type="file" class="form-control" name="image" id="img"> <!--id="img" to be able to preview image -->
+       <img src="#" id="imgPreview">
+   </div>
+   <button class="btn btn-default">Submit</button>
+   
+</form>
+
+<!-- Script for image preview. -->
+<script>
+   function readURL(input) {
+       if(input.files && input.files[0]) {
+           let reader = new FileReader();
+
+           reader.onload = function(e) {
+               $("#imgPreview").attr('src', e.target.result).width(100).height(100);
+           }
+           
+           reader.readAsDataURL(input.files[0]);
+       }
+   }
+
+   $("#img").change(function() {
+       readURL(this);
+   });
+</script>
+
+<%- include('../layouts/adminfooter') %> 

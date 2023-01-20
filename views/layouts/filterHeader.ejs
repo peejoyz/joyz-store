@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+	<title>Products</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords" content=""
+	/>
+
+
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //Meta tag Keywords -->
+
+	<!-- Custom-Files -->
+	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- Bootstrap css -->
+	<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <link rel="stylesheet" href="/css/adminstyle.css" />
+	<!-- Main css -->
+	<link rel="stylesheet" href="/css/fontawesome-all.css">
+	<!-- Font-Awesome-Icons-CSS -->
+	<link href="/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- pop-up-box -->
+	<link href="/css/menu.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- menu style -->
+	<!-- //Custom-Files -->
+
+	<!-- web fonts -->
+	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+	    rel="stylesheet">
+	<!-- //web fonts -->
+
+</head>
+
+<style>
+	.message-box {
+		width: 200px;
+		margin-top: 0.2em;
+	}
+</style>
+
+<body>
+	<!-- top-header -->
+	<div class="agile-main-top">
+		<div class="container-fluid">
+			<div class="row main-top-w3l py-2">
+				<div class="col-lg-4 header-most-top">
+					<p class="text-white text-lg-left text-center">Offer Zone Top Deals & Discounts
+						<i class="fas fa-shopping-cart ml-1"></i>
+					</p>
+				</div>
+				<div class="col-lg-8 header-right mt-lg-0 mt-2">
+					<!-- header lists -->
+					<ul>
+						<li class="text-center border-right text-white">
+							<i class="fas fa-phone mr-2"></i> 001 234 5678
+						</li>
+
+						<!-- displaying username in header -->
+						<% if(user) { %>
+							<li class="text-center border-right text-white">
+								<a href="/user/logout" data-toggle="" data-target="" class="text-white">
+									<i> Hi, <%= user.username %> (logout) </i>
+							</li>
+						<% } else { %>
+							<li class="text-center text-white">
+								<a href="/user/register" data-toggle="" data-target="" class="text-white">
+									<i class="fas fa-sign-out-alt mr-2"></i>Register 
+								</a>
+								<span>| </span>
+								<a href="/user/login" data-toggle="" data-target="" class="text-white">
+									<i class="fas fa-sign-out-alt mr-2"></i>Login 
+								</a>
+									
+							</li>
+						<% } %>
+
+						<!-- Displaying if user or logged in user is an admin -->
+						<% if(user && user.admin == 1) {%>
+							<li><a style="color: #fff;" href="/admin/categories">Admin Area</a></li>
+						<% } %>
+					</ul>
+					<!-- //header lists -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- header-bottom-->
+	<div class="header-bot">
+		<div class="container">
+			<div class="row header-bot_inner_wthreeinfo_header_mid">
+				<!-- logo -->
+				<div class="col-md-3 logo_agile">
+					<h1 class="text-center">
+						<a href="/home" class="font-weight-bold font-italic">
+							<img src="/images/logo2.png" alt=" " class="img-fluid">Joyz Store
+						</a>
+					</h1>
+				</div>
+				<!-- //logo -->
+				<!-- header-bot -->
+				<div class="col-md-9 header mt-4 mb-md-0 mb-4">
+					<div class="row">
+						<!-- search -->
+						<div class="col-10 agileits_search">
+							<form class="form-inline" action="/product/product-search" method="get">
+								<input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+								<button class="btn my-2 my-sm-0" type="submit">Search</button>
+							</form>
+						</div>
+						<!-- //search -->
+						
+						<!-- cart details -->
+						<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
+
+								<button class="btn w3view-cart">
+									<a href="/cart/checkout">
+
+										<i class="fas fa-cart-arrow-down">
+											<% if(typeof cart !== "undefined") { %>
+												<%= cart.length %>
+											<% } else { %>
+												<span class="cartt">0</span>
+											<% } %> 
+										</i>
+									</a>
+								</button>
+
+								<div class="message-box">
+									<%- messages('messages', locals) %> <!-- Calling the messages middleware -->
+							
+									 <!-- Making the validation errors show in here -->
+									 <% if (errors) {%>
+									  <% errors.forEach((error) => { %>
+										  <div class="alert alert-danger">
+											  <%= error.msg %>
+										  </div>
+									  <% });%> 
+									<% }%>
+								</div>
+
+							</div>
+						</div>
+						<!-- //cart details -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- shop locator (popup) -->
+	<!-- //header-bottom -->
+	<!-- navigation -->
+	<div class="navbar-inner">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				    aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-4 text-center mr-xl-5">
+						<li class="nav-item active mr-lg-4 mb-lg-0 mb-2">
+							<a class="nav-link" href="/home">Home
+								<span class="sr-only"></span>
+							</a>
+						</li>
+						
+						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
+							<a class="nav-link" href="/home/about">About Us</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/home/contact">Contact Us</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<!-- //navigation -->
+
+	<!-- banner-2 -->
+	<div class="page-head_agile_info_w3l-2">
+
+	</div>
+	<!-- //banner-2 -->
+	<!-- page -->
+	<div class="services-breadcrumb">
+		<div class="agile_inner_breadcrumb">
+			<div class="container">
+				<ul class="w3_short">
+					<li>
+						<a href="/home">Home</a>
+						<i>|</i>
+                        Products
+					</li>
+					<li></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+          
+
+        
+
+
+
+
+  

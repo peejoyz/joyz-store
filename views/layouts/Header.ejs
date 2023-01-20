@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+	<title><%= title %></title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords" content=""
+	/>
+
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //Meta tag Keywords -->
+
+	<!-- Custom-Files -->
+	<link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- Bootstrap css -->
+	<link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+  	<link rel="stylesheet" href="/css/adminstyle.css" />
+
+	<!-- Main css -->
+	<link rel="stylesheet" href="/css/fontawesome-all.css">
+	<!-- Font-Awesome-Icons-CSS -->
+	<link href="/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- pop-up-box -->
+	<link href="/css/menu.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- menu style -->
+	<!-- //Custom-Files -->
+
+	<!-- web fonts -->
+	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+	    rel="stylesheet">
+	<!-- //web fonts -->
+
+</head>
+
+<style>
+	.message-box {
+		width: 200px;
+		margin-top: 0.2em;
+		
+	}
+
+	@media(max-width: 600px) {
+		.message-box {
+			width: 200px;
+			margin-left: -10em;
+			margin-top: 0.3em;
+		}
+	}
+</style>
+
+<body>
+	<!-- top-header -->
+	<div class="agile-main-top">
+		<div class="container-fluid">
+			<div class="row main-top-w3l py-2">
+				<div class="col-lg-4 header-most-top">
+					<p class="text-white text-lg-left text-center">Offer Zone Top Deals & Discounts
+						<i class="fas fa-shopping-cart ml-1"></i>
+					</p>
+				</div>
+				<div class="col-lg-8 header-right mt-lg-0 mt-2">
+					<!-- header lists -->
+					<ul>
+						<li class="text-center border-right text-white">
+							<i class="fas fa-phone mr-2"></i> 001 234 5678
+						</li>
+
+						<!-- displaying username in header -->
+						<% if(user) { %>
+							<li class="text-center border-right text-white">
+								<a href="/user/logout" data-toggle="" data-target="" class="text-white">
+									<i> Hi, <%= user.username %> (logout) </i>
+							</li>
+						<% } else { %>
+							<li class="text-center text-white">
+								<a href="/user/register" data-toggle="" data-target="" class="text-white">
+									<i class="fas fa-sign-out-alt mr-2"></i>Register 
+								</a>
+								<span>| </span>
+								<a href="/user/login" data-toggle="" data-target="" class="text-white">
+									<i class="fas fa-sign-out-alt mr-2"></i>Login 
+								</a>
+									
+							</li>
+						<% } %>
+
+						<!-- Displaying if user or logged in user is an admin -->
+						<% if(user && user.admin == 1) {%>
+							<li><a style="color: #fff;" href="/admin/categories">Admin Area</a></li>
+						<% } %>
+					</ul>
+					<!-- //header lists -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- header-bottom-->
+	<div class="header-bot">
+		<div class="container">
+			<div class="row header-bot_inner_wthreeinfo_header_mid">
+				<!-- logo -->
+				<div class="col-md-3 logo_agile">
+					<h1 class="text-center">
+						<a href="/home" class="font-weight-bold font-italic">
+							<img src="/images/logo2.png" alt=" " class="img-fluid">Joyz Store
+						</a>
+					</h1>
+				</div>
+				<!-- //logo -->
+				<!-- header-bot -->
+				<div class="col-md-9 header mt-4 mb-md-0 mb-4">
+					<div class="row">
+						<!-- search -->
+						<div class="col-10 agileits_search">
+							<form class="form-inline" action="/home/product/product-search" method="get">
+								<input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+								<button class="btn my-2 my-sm-0" type="submit">Search</button>
+							</form>
+						</div>
+						<!-- //search -->
+						<!-- cart details -->
+						<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
+							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
+	
+									<button class="btn w3view-cart">
+										<a href="/cart/checkout">
+
+											<i class="fas fa-cart-arrow-down">
+												<% if(typeof cart !== "undefined") { %>
+													<%= cart.length %>
+												<% } else { %>
+													<span class="cartt">0</span>
+												<% } %> 
+											</i>
+										</a>
+									</button>
+
+									<div class="message-box">
+										<%- messages('messages', locals) %> <!-- Calling the messages middleware -->
+
+										<!-- Making the validation errors show in here -->
+										<% if (errors) {%>
+											<% errors.forEach((error) => { %>
+												<div class="alert alert-danger">
+													<%= error.msg %>
+												</div>
+											<% });%> 
+									   	<% } %>
+									</div>
+							</div>
+						</div>
+						<!-- //cart details -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- shop locator (popup) -->
+	<!-- //header-bottom -->
+	<!-- navigation -->
+	<div class="navbar-inner">
+		<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="agileits-navi_search">
+					
+
+					<div class="nav nav-tabs">
+						<li class="dropdown">
+		
+						   <a href="" data-toggle="dropdown" class="dropdown-toggle drop2">All Categories<b class="caret"></b></a>
+		
+							<ul class="dropdown-menu">
+								<% categories.forEach(function(c) { %>
+
+									<li><a href="/home/<%= c.slug %>" target="_blank"> <%= c.title %></a></li>
+		
+									<li class="divider"></li>
+								<% })%>
+							</ul>
+						</li>
+					</div>
+				</div>
+				
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+				    aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-auto text-center mr-xl-5">
+						<li class="nav-item active mr-lg-4 mb-lg-0 mb-2">
+							<a class="nav-link" href="/">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
+							<a class="nav-link" href="/home/men-product">Men</a>
+						</li>
+						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
+							<a class="nav-link" href="/home/women-product">Women</a>
+						</li>
+						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
+							<a class="nav-link" href="/home/about">About Us</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="/home/contact">Contact Us</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<!-- //navigation -->
+
+	<!-- banner -->
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+		<!-- Indicators-->
+		<ol class="carousel-indicators">
+			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+		</ol>
+		<div class="carousel-inner">
+			<div class="carousel-item item1 active">
+				<div class="container">
+					<div class="w3l-space-banner">
+						<div class="carousel-caption p-lg-5 p-sm-4 p-3">
+							<p>Get flat
+								<span>10%</span> Cashback</p>
+							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">The
+								<span>Big</span>
+								Sale
+							</h3>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item item2">
+				<div class="container">
+					<div class="w3l-space-banner">
+						<div class="carousel-caption p-lg-5 p-sm-4 p-3">
+							<p>advanced
+								<span>Wireless</span> earbuds</p>
+							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">Best
+								<span>Headphone</span>
+							</h3>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item item3">
+				<div class="container">
+					<div class="w3l-space-banner">
+						<div class="carousel-caption p-lg-5 p-sm-4 p-3">
+							<p>Get flat
+								<span>10%</span> Cashback</p>
+							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">New
+								<span>Standard</span>
+							</h3>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="carousel-item item4">
+				<div class="container">
+					<div class="w3l-space-banner">
+						<div class="carousel-caption p-lg-5 p-sm-4 p-3">
+							<p>Get Now
+								<span>40%</span> Discount</p>
+							<h3 class="font-weight-bold pt-2 pb-lg-5 pb-4">Today
+								<span>Discount</span>
+							</h3>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+	<!-- //banner -->
+
+    <div class="container">
+       
+
+  

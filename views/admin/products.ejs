@@ -1,0 +1,64 @@
+
+<%- include('../layouts/adminheader') %>
+
+<h3 class="page-title alignmiddle">Products</h3>
+<a href="/admin/products/add-product" class="btn btn-md btn-primary">Add a new product</a>
+<br><br>
+
+<!--If there's any product : count as defined in the admin_products.js routes-->
+
+<table class="table table-striped alignmiddle">
+    <thead>
+        <tr class="home">
+            <th>Full Product Name</th>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Product Image</th>
+            <th>Discount Price</th>
+            <th>Discount Percentage</th>
+            <th>Ratings</th>
+            <th>Rated By</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr> 
+    </thead>
+    <tbody>
+        <% products.forEach(function(product){ %>
+            
+            </ul>
+
+            <tr>
+                <td><%= product.full_title %></td>
+                <td><%= product.title %></td>
+                <td>$<%= parseFloat (product.price).toFixed(2) %></td> <!--fixed(2) to 2 dp-->
+                <td><%= product.category %></td>
+                <td>
+                    <img id="noimages" src="/product_images/<%= product._id %>/<%= product.image %>">
+                </td>
+                <td>
+                    <% if(product.discount_price) { %>
+                        $<%= product.discount_price %>
+                    <% } %>
+                   
+                </td>
+                <td>
+                    <% if(product.discount_percentage) { %>
+                        <%= product.discount_percentage %>
+                    <% } %>
+                </td>
+                <td><%= product.ratings %></td>
+                <td><%= product.rated_by %></td>
+
+                <td><a href="/admin/products/edit-product/<%= product._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/products/delete-product/<%= product._id %>">Delete</a></td>  
+            </tr>
+            
+        <% }) %>
+    </tbody>
+</table>
+
+
+
+
+<%- include('../layouts/adminfooter') %> 

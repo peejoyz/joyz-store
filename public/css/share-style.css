@@ -1,0 +1,20 @@
+#share-container span {
+    display: block;
+    margin: 3rem auto;
+    font-size: 20px;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+#share-buttons i {
+    font-size: 20px;
+    margin: 5px;
+}
+
+.facebook, .twitter, .whatsapp {
+    opacity: 0.65;
+}
+
+.facebook:hover, .twitter:hover, .whatsapp:hover {
+    opacity: 0.9;
+}

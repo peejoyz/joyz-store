@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+
+  <title>Admin Area</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+  integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"">
+
+  <link rel="stylesheet" href="/css/adminstyle.css" />
+
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="/js/main.js"></script>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous">
+  </script>
+
+</head>
+
+<style>
+
+  #navbarcollapse {
+    /* margin-right: 20px; */
+    text-decoration: none;
+  }
+
+  #navbarcollapse1 ul li {
+    /* margin-right: 40px; */
+    text-decoration: none;
+    border: none;
+    /* display: flex; */
+    margin: 12px;
+  }
+
+  #navbarcollapse1 ul li a {
+    color:#fff;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  #navbarcollapse1 ul li a:hover {
+    text-decoration: none;
+    color: azure;
+  }
+
+  #navbarcollapse ul li {
+    /* margin-right: 40px; */
+    text-decoration: none;
+    border: none;
+    font-size: 16px;
+    margin: 12px;
+
+  }
+
+  #navbarcollapse ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  #navbarcollapse ul li a:hover {
+    text-decoration: none;
+    border-radius: 75px;
+    background-color: #7c7c7c;
+    border: none;
+    color: azure;
+    font-weight: bolder;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.14) !important;
+
+  }
+
+
+  #car {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .bg-dark{
+    background: #999;
+  }
+
+</style>
+
+<body>
+    <nav role="navigation" class="navbar navbar-expand-sm navbar-light bg-dark rounded mb-2">
+        <a class="navbar-brand" href="/" target="_blank">DEJSTORE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarcollapse1"
+        aria-controls="navbarcollapse1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div id="navbarcollapse1" class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <!-- <a class="nav-link" href="/admin/pages" target="_blank">pages <span class="sr-only">(current)</span></a> -->
+              <li><a class="nav-link" href="/admin/categories">categories <span class="sr-only">(current)</span></a></li>
+              <li><a class="nav-link" href="/admin/products">products <span class="sr-only">(current)</span></a></li>
+            </li>    
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/user/logout"> Logout </a></li>
+        </ul>
+      </div>
+    </nav>  
+
+    <div class="container">
+      <%- messages('messages', locals) %> <!-- Calling the messages middleware -->
+
+      <!-- Making the validation errors show in here -->
+      <% if (errors) {%>
+        <div id="error_display">
+          <% errors.forEach((error) => { %>
+              <div class="alert alert-danger">
+                <%= error.msg %>
+              </div>    
+          <% });%> 
+        </div>
+      <% }%>
+      
+
+     
+
+
+
+
+
+  

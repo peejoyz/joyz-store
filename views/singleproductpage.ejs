@@ -1,0 +1,135 @@
+<%- include('layouts/singleproductpageheader') %>
+
+<!-- Single Page -->
+<div class="banner-bootom-w3-agileits py-5">
+    <div class="container py-xl-4 py-lg-2">
+        <!-- tittle heading -->
+        <h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+            <span><%= title %></span>
+            <span>P</span>age</h3>
+        <!-- //tittle heading -->
+        <div class="row">
+            <div class="col-lg-5 col-md-8 single-right-left ">
+                <div class="grid images_3_of_2">
+                    <div class="flexslider">  
+                        <ul class="slides">
+                            <% galleryImages.forEach(function(image) { %>
+                                <% if (image != "thumbs") { %>
+                                <li data-thumb="/product_images/<%= p.id %>/gallery/<%= image %>">
+                                    <div class="thumb-image">
+                                        <img class="spi" src="/product_images/<%= p.id %>/gallery/<%= image %>" data-imagezoom="true" class="img-fluid" alt=""> 
+                                    </div>
+                                </li>
+                                <% } %>
+                            <% }) %>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 single-right-left simpleCart_shelfItem">
+                <h3 class="mb-3"><%= p.full_title %></h3>
+                <p class="mb-3">
+                    <% if(p.discount_price) { %>
+                        <span class="mx-2 font-weight:bold" style="color:#d60404; font-size: 16px;">$<%= parseFloat(p.discount_price).toFixed(2) %></span>
+                        <del class="item_price">$<%= parseFloat(p.price).toFixed(2) %></del>
+                    <% } else { %>
+                        <span class="item_price">$<%= parseFloat(p.price).toFixed(2) %></span>
+                    <% } %>
+                    
+                    <label>Free delivery</label>
+                </p>
+                <div class="single-infoagile">
+                    <ul>
+                        <li class="mb-3">
+                            Cash on Delivery Eligible.
+                        </li>
+                        <li class="mb-3">
+                            Shipping Speed to Delivery.
+                        </li>
+                        <li class="mb-3">
+                            EMIs from $655/month.
+                        </li>
+                        <li class="mb-3">
+                            Bank OfferExtra 5% off* with Axis Bank Buzz Credit CardT&C
+                        </li>
+                    </ul>
+                </div>
+                <div class="product-single-w3l">
+                    <p class="my-3">
+                        <i class="far fa-hand-point-right mr-2"></i>
+                        <label>1 Year</label>Manufacturer Warranty</p>
+                    <ul>
+                        <%- p.desc %>
+                    </ul>
+                </div>
+                <div class="occasion-cart" style="margin-top: 3em;">
+                    <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                            <a href="/cart/add/<%= p.slug %>"> <input type="button" value="Add to cart" class="button btn" /> </a>
+                    </div>
+                </div>
+
+                <div id="share-container">
+                    <span>Share this: </span>
+
+                    <div id="share-buttons">
+
+                        <!-- facebook -->
+                        <a class="facebook" target="blank"><i class="fab fa-facebook"></i></a>
+
+                        <!-- twitter -->
+                        <a class="twitter" target="blank"><i class="fab fa-twitter"></i></a>
+
+                        <!-- whatsapp -->
+                        <a class="whatsapp" target="blank"><i class="fab fa-whatsapp"></i></a>
+
+                        <!-- linkedin -->
+                        <a class="linkedin" target="blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Single Page -->
+
+<!-- middle section -->
+<div class="join-w3l1 py-sm-5 py-4">
+    <div class="container py-xl-4 py-lg-2">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="join-agile text-left p-4">
+                    <div class="row">
+                        <div class="col-sm-7 offer-name">
+                            <h6>Smooth, Rich & Loud Audio</h6>
+                            <h4 class="mt-2 mb-3">Branded Headphones</h4>
+                            <p>Sale up to 25% off all in store</p>
+                        </div>
+                        <div class="col-sm-5 offerimg-w3l">
+                            <img src="/images/off1.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5">
+                <div class="join-agile text-left p-4">
+                    <div class="row ">
+                        <div class="col-sm-7 offer-name">
+                            <h6>A Bigger Phone</h6>
+                            <h4 class="mt-2 mb-3">Smart Phones 5</h4>
+                            <p>Free shipping order over $100</p>
+                        </div>
+                        <div class="col-sm-5 offerimg-w3l">
+                            <img src="/images/off2.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- middle section -->
+
+<%- include('layouts/singleproductpagefooter') %>

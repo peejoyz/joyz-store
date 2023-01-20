@@ -1,0 +1,71 @@
+<%- include('layouts/searchHeader') %>
+
+    <div class="ads-grid py-sm-5 py-4">
+        <div class="container py-xl-4 py-lg-2">
+            <!-- tittle heading -->
+            <h3 class="tittle-w3l mb-lg-5 mb-sm-4 mb-3 text-center" style="margin-bottom: 2em;">
+                Your search input:  <span><%= title %></span>
+            </h3>
+                <!-- <span>N</span>ew -->
+            <div class="row">
+                <!-- product left -->
+                <div class="agileinfo-ads-display col-lg-9">
+                    <div class="wrapper">
+                        <div class="product-sec1 px-sm-4 px-3 py-sm-5  py-3 mb-4">
+                            <h3 class="heading-tittle text-center font-italic" style="margin-bottom: 0.7em;"></h3>
+                            <div class="row">
+                                <% products.forEach(function(m) { %>
+                                <div class="col-md-4 product-men mt-" style="margin-bottom: 0.7em;">  
+                                    <div class="men-pro-item simpleCart_shelfItem">
+                                            <div class="men-thumb-item text-center">
+                                                <img class="pimage" src="/product_images/<%= m.id %>/<%= m.image %>"" alt="">
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <a href="/products/<%= m.category %>/<%= m.slug %>" class="link-product-add-cart">Quick View</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    
+                                            <div class="item-info-product text-center border-top mt-4">
+                                                <h4 class="pt-1">
+                                                    <a href="/products/<%= m.category %>/<%= m.slug %>"><%= m.title %></a>
+                                                </h4>
+                                                <div class="info-product-price my-2">
+                                                    <% if(m.discount_price) { %>
+                                                        <span class="mx-2 font-weight:bold" style="color:#d60404; font-size: 16px;">$<%= parseFloat(m.discount_price).toFixed(2) %></span>
+                                                        <del class="item_price">$<%= parseFloat(m.price).toFixed(2) %></del>
+                                                    <% } else { %>
+                                                        <span class="mx-2 font-weight:bold" style="color:#d60404; font-size: 16px;">$<%= parseFloat(m.price).toFixed(2) %></span>
+                                                    <% } %>
+                                                </div>
+                                                <div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+                                                    <!-- <p class="button btn"><a href="/cart/add/<%= m.slug %>"> Add to cart</a></p> -->
+                                                    <a href="/cart/add/<%= m.slug %>"> <input type="button" value="Add to cart" class="button btn" /> </a>
+                                                </div>
+                                            </div>
+                                        
+                                    
+
+                                    </div>
+                                    
+                                </div>
+                                <% }) %> 
+                            </div>
+                        </div>
+
+                        <!-- second section : summer carnival picture -->
+                        <div class="product-sec1 product-sec2 px-sm-5 px-3">
+                            <div class="row">
+                                <h3 class="col-md-4 effect-bg">Summer Carnival</h3>
+                                <p class="w3l-nut-middle">Get Extra 10% Off</p>
+                                <div class="col-md-8 bg-right-nut">
+                                    <img src="/images/image1.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('layouts/footer') %>
