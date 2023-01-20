@@ -1,4 +1,6 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+  }
 
 const express = require('express');
 const path = require('path');
@@ -12,13 +14,16 @@ const passport = require('passport');
 const app = express();
 
 mongoose.set('strictQuery', false);
-mongoose.connect(process.env.MONGO_URI, function(err) {
-    if(err){
-        console.log(err);
-    } else {
-        console.log('connected to db')
+
+const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(process.env.MONGO_URI);
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
     }
-});
+  }
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -135,8 +140,11 @@ app.use((req, res) => {
     });
 });
 
-let port = process.env.port;
+let port = process.env.port || 7000;
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+//Connect to the database before listening
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log("listening for requests");
+    })
 })
