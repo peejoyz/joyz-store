@@ -57,7 +57,8 @@
                     <ul>
                         <% categories.forEach(function(c) { %>
 
-                            <li class="mb-3"><a href="/home/<%= c.slug %>" target="_blank"> <%= c.title %></a></li>
+                            <li class="mb-3"><a href="/home/<%= c.slug %>" target="_blank"> <%= c.title %></a></li> 
+                            
                         <% })%>
                     </ul>
                 </div>
@@ -67,22 +68,22 @@
                     <h3 class="text-white font-weight-bold mb-3">Quick Links</h3>
                     <ul>
                         <li class="mb-3">
-                            <a href="/home/about">About Us</a>
+                            <a href="/home/about" target="_blank">About Us</a>
                         </li>
                         <li class="mb-3">
-                            <a href="/home/contact">Contact Us</a>
+                            <a href="/home/contact" target="_blank">Contact Us</a>
                         </li>
                         <li class="mb-3">
-                            <a href="/home">Help</a>
+                            <a href="/home" target="_blank">Help</a>
                         </li>
                         <li class="mb-3">
-                            <a href="/home">Faqs</a>
+                            <a href="/home" target="_blank">Faqs</a>
                         </li>
                         <li class="mb-3">
-                            <a href="/home">Terms of use</a>
+                            <a href="/home" target="_blank">Terms of use</a>
                         </li>
                         <li>
-                            <a href="/home">Privacy Policy</a>
+                            <a href="/home" target="_blank">Privacy Policy</a>
                         </li>
                     </ul>
                 </div>
@@ -184,11 +185,30 @@
 <script src="/js/scroll.js"></script>
 <!-- //scroll seller -->
 
+<!-- imagezoom -->
+<script src="/js/imagezoom.js"></script>
+<!-- //imagezoom -->
+
+<!-- flexslider -->
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" />
+
+<script src="/js/jquery.flexslider.js"></script>
+<script>
+    // Can also be used with $(document).ready()
+    $(window).load(function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            controlNav: "thumbnails"
+        });
+    });
+</script>
+<!-- //FlexSlider-->
+
+<!-- start-smooth-scrolling -->
 <!-- smoothscroll -->
 <script src="/js/SmoothScroll.min.js"></script>
 <!-- //smoothscroll -->
 
-<!-- start-smooth-scrolling -->
 <script src="/js/move-top.js"></script>
 <script src="/js/easing.js"></script>
 <script>
@@ -229,7 +249,7 @@
 <!-- //js-files -->
 <script src="/js/main.js"></script>
 <script src="/js/check.js"></script>
-
+<script src="/js/share-btn.js"></script>
 </body>
 
 </html>

@@ -163,7 +163,7 @@
 							<span>Category</span>
 							<i>|</i>
 						</li>
-						<li><%= title%></li>
+						<li style="color: #F45C5D;"> <%= title%> </li>
 					</ul>
 				</div>
 				
@@ -171,20 +171,21 @@
 				    aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
+
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-4 text-center mr-xl-5">
+					<ul class="navbar-nav ml-auto text-center mr-xl-5">
 						<li class="nav-item active mr-lg-4 mb-lg-0 mb-2">
-							<a class="nav-link" href="/">Home
+							<a class="nav-link" href="/home">Home
 								<span class="sr-only"></span>
 							</a>
 						</li>
 						
 						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
-							<a class="nav-link" href="/about">About Us</a>
+							<a class="nav-link" href="/home/about">About Us</a>
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link" href="/contact">Contact Us</a>
+							<a class="nav-link" href="/home/contact">Contact Us</a>
 						</li>
 					</ul>
 				</div>
@@ -202,7 +203,7 @@
 			<div class="container">
 				<ul class="w3_short">
 					<li>
-						<a href="/">Home</a>
+						<a href="/home">Home</a>
 						<i>|</i>
 					</li>
 					<li><%= title%></li>
