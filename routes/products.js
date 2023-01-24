@@ -11,31 +11,35 @@ let Product = require('../models/product');
 router.get('/:category/:product', (req, res) => {
 
     // let galleryImages = null; 
-    
+
     Product.findOne({slug: req.params.product}, function(err, product) {
         if(err) {
-            console.log(err);
-        } else {
+            res.status(404).render('404')
+        }
+
+        if(product && product._id) {
             let galleryDir = 'public/product_images/' + product._id + '/gallery';
+
 
             fs.readdir(galleryDir, function(err, files) {
                 if (err) {
-                    console.log(err);
-                } else {
-                    galleryImages = files;
+                    console.log(err)
+                }
+                    else {
+                    galleryImages = files; 
 
                     res.render('singleproductpage', {
                         title: product.title,
                         p: product, //product itself
                         galleryImages: galleryImages
-                    });
-                }
-                    
+                    });                       
+                }      
             });
+        } else {
+            res.render('404')
         }
     })
 
-    
 });
 
 

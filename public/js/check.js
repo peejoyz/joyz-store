@@ -3,8 +3,9 @@ function isChecked() {
     checked) {
         window.location = encodeURI('/home/discount-five');
     }
+    
     else {
-        window.location = '/home';
+        window.location = '/';
     }
 }
 
@@ -14,7 +15,7 @@ function isChecked2() {
         window.location = encodeURI('/home/discount-ten');
     }
     else {
-        window.location = '/home';
+        window.location = '/';
     }
 }
 
@@ -24,7 +25,7 @@ function isChecked3() {
         window.location = encodeURI('/home/discount-twenty');
     }
     else {
-        window.location = '/home';
+        window.location = '/';
     }
 }
 
@@ -34,7 +35,7 @@ function isChecked4() {
         window.location = encodeURI('/home/discount-thirty');
     }
     else {
-        window.location = '/home/';
+        window.location = '/';
     }
 }
 
@@ -44,6 +45,6 @@ function isChecked5() {
         window.location = encodeURI('/home/discount-fifty');
     }
     else {
-        window.location = '/home/';
+        window.location = '/';
     }
 }

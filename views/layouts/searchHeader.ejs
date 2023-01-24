@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
 	<title><%= title %></title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
-	<meta name="keywords" content=""
-	/>
 
 	<script>
 		addEventListener("load", function () {
@@ -104,7 +102,7 @@
 				<!-- logo -->
 				<div class="col-md-3 logo_agile">
 					<h1 class="text-center">
-						<a href="/home" class="font-weight-bold font-italic">
+						<a href="/" class="font-weight-bold font-italic">
 							<img src="/images/logo2.png" alt=" " class="img-fluid">Joyz Store
 						</a>
 					</h1>
@@ -113,7 +111,12 @@
 				<!-- header-bot -->
 				<div class="col-md-9 header mt-4 mb-md-0 mb-4">
 					<div class="row">
-						<div class="col-10 agileits_search"></div>
+						<div class="col-10 agileits_search">
+							<form class="form-inline" action="/product/product-search" method="get">
+								<input name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
+								<button class="btn my-2 my-sm-0" type="submit">Search</button>
+							</form>
+						</div>
 						<!-- cart details -->
 						<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
 							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
@@ -165,21 +168,21 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto text-center mr-xl-5">
 						<li class="nav-item active mr-lg-4 mb-lg-0 mb-2">
-							<a class="nav-link" href="/home">Home
+							<a class="nav-link" href="/">Home
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
 						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
-							<a class="nav-link" href="/home/men-product">Men</a>
+							<a class="nav-link" href="/home/product/men-product">Men</a>
 						</li>
 						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
-							<a class="nav-link" href="/home/women-product">Women</a>
+							<a class="nav-link" href="/home/product/women-product">Women</a>
 						</li>
 						<li class="nav-item mr-lg-4 mb-lg-0 mb-2">
-							<a class="nav-link" href="/home/about">About Us</a>
+							<a class="nav-link" href="/home/product/store/about">About Us</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="/home/contact">Contact Us</a>
+							<a class="nav-link" href="/home/product/store/contact">Contact Us</a>
 						</li>
 					</ul>
 				</div>

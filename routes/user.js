@@ -75,7 +75,7 @@ router.post('/register', function(req, res) {
 //Get Login
 router.get('/login', function(req, res) {
 
-    if(res.locals.user) res.redirect('/home')
+    if(res.locals.user) res.redirect('/')
 
     res.render('login', {
         title: 'Joyz store | Log in'
@@ -87,7 +87,7 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res, next) {
     
         passport.authenticate('local', {
-            successRedirect: '/home',
+            successRedirect: '/',
             failureRedirect: '/user/login',
             failureFlash: true
         })(req, res, next);

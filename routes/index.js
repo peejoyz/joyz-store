@@ -44,8 +44,7 @@ router.get('/', (req, res) => {
                                             res.status(500).json({ message: err.message });
                                         
                                             res.render('index', {
-                                                title: 'Joyz Store',
-                                                title: 'Joyz Store',
+                                                title: 'Joyz Store | Home',
                                                 men: men,
                                                 mobiles: mobiles,
                                                 appliances: appliances,
@@ -71,18 +70,18 @@ router.get('/men-product', (req, res) => {
 
     let categorySlugg = 'men';
 
-        Category.findOne({slug: categorySlugg}, (err) => {
-            Product.find({category: categorySlugg}, (err, men) => {
-                if(err)
-                res.status(500).json({ message: err.message });
-                
-                res.render('menindex', {
-                    // title: c.slug.toUpperCase(),
-                    title: 'Men Products',
-                    men: men
-                })  
-            })
-        })    
+    Category.findOne({slug: categorySlugg}, (err) => {
+        Product.find({category: categorySlugg}, (err, men) => {
+            if(err)
+            res.status(500).json({ message: err.message });
+            
+            res.render('menindex', {
+                // title: c.slug.toUpperCase(),
+                title: 'Men Products',
+                men: men
+            })  
+        })
+    }) 
 });
 
 
@@ -105,26 +104,26 @@ router.get('/women-product', (req, res) => {
         })    
 });
 
-router.get('/about', (req, res) => {
+router.get('/store/about', (req, res) => {
     res.render('about', {
         title: 'Joyz Store | About Us'
     });
 })
 
-router.get('/contact', (req, res) => {
+router.get('/store/contact', (req, res) => {
     res.render('contact', {
         title: 'Joyz Store | Contact Us'
     });
 });
 
-router.get('/payment', (req, res) => {
+router.get('/home/payment', (req, res) => {
 
     res.render('payment', {
         title: 'Joyz Store | Payment',
     });
 });
 
-router.post('/payment/card', (req, res) => {
+router.post('/home/payment/card', (req, res) => {
    
     delete req.session.cart;
     
@@ -134,7 +133,7 @@ router.post('/payment/card', (req, res) => {
 })
 
 // under $200
-router.get('/two-hundred-price', (req, res) => {
+router.get('/home/two-hundred-price', (req, res) => {
 
     Product.find({ price : {"$lt" : 200}}, (err, products) => {
         // console.log(products);
@@ -150,7 +149,7 @@ router.get('/two-hundred-price', (req, res) => {
 })
 
 //btw $100 - $200
-router.get('/btw-hundred-price1', (req, res) => {
+router.get('/home/btw-hundred-price1', (req, res) => {
 
     Product.find({$and: [{price:{$gt: 100}}, {price:{$lt: 200}}]}, (err, products) => {
         // console.log(products);
@@ -166,7 +165,7 @@ router.get('/btw-hundred-price1', (req, res) => {
 })
 
 //btw $200 - $300
-router.get('/btw-hundred-price2', (req, res) => {
+router.get('/home/btw-hundred-price2', (req, res) => {
 
     Product.find({$and: [{price:{$gt: 200}}, {price:{$lt: 300}}]}, (err, products) => {
         // console.log(products);
@@ -182,7 +181,7 @@ router.get('/btw-hundred-price2', (req, res) => {
 })
 
 //btw $300 - $400
-router.get('/btw-hundred-price3', (req, res) => {
+router.get('/home/btw-hundred-price3', (req, res) => {
 
     Product.find({$and: [{price:{$gt: 300}}, {price:{$lt: 400}}]}, (err, products) => {
         // console.log(products);
@@ -198,7 +197,7 @@ router.get('/btw-hundred-price3', (req, res) => {
 })
 
 //btw $400 - $500
-router.get('/btw-hundred-price4', (req, res) => {
+router.get('/home/btw-hundred-price4', (req, res) => {
 
     Product.find({$and: [{price:{$gt: 400}}, {price:{$lt: 500}}]}, (err, products) => {
         // console.log(products);
@@ -214,7 +213,7 @@ router.get('/btw-hundred-price4', (req, res) => {
 })
 
 //Over $500
-router.get('/btw-hundred-price5', (req, res) => {
+router.get('/home/btw-hundred-price5', (req, res) => {
 
     Product.find({ price : {"$gt" : 500}}, (err, products) => {
         // console.log(products);
@@ -232,7 +231,7 @@ router.get('/btw-hundred-price5', (req, res) => {
 //discounts
 
 //10%
-router.get('/discount-ten', (req, res) => {
+router.get('/home/discount-ten', (req, res) => {
 
     Product.find({$and: [{discount_percentage: {$gte: "10%"}}, {discount_percentage:{$lt: "20%"}}]}, (err, products) => {
         if(err){
@@ -247,7 +246,7 @@ router.get('/discount-ten', (req, res) => {
 });
 
 //20%
-router.get('/discount-twenty', (req, res) => {
+router.get('/home/discount-twenty', (req, res) => {
 
     Product.find({$and: [{discount_percentage: {$gte: "20%"}}, {discount_percentage:{$lt: "30%"}}]}, (err, products) => {
         if(err){
@@ -262,7 +261,7 @@ router.get('/discount-twenty', (req, res) => {
 });
 
 //30%
-router.get('/discount-thirty', (req, res) => {
+router.get('/home/discount-thirty', (req, res) => {
 
     Product.find({$and: [{discount_percentage: {$gte: "30%"}}, {discount_percentage:{$lte: "50%"}}]}, (err, products) => {
         if(err){
@@ -277,7 +276,7 @@ router.get('/discount-thirty', (req, res) => {
 });
 
 //50%
-router.get('/discount-fifty', (req, res) => {
+router.get('/home/discount-fifty', (req, res) => {
 
     Product.find({$and: [{discount_percentage:{$gte: "50%"}}, {discount_percentage:{$lt: "60%"}}]}, (err, products) => {
         if(err){
@@ -292,7 +291,7 @@ router.get('/discount-fifty', (req, res) => {
 });
 
 //60%
-router.get('/discount-sixty', (req, res) =>{
+router.get('/home/discount-sixty', (req, res) =>{
 
     Product.find({discount_percentage : {"gte" : "60%"}}, (err, products) => {
         if(err){
@@ -306,22 +305,23 @@ router.get('/discount-sixty', (req, res) =>{
     })
 });
 
-router.get('/:category', (req, res) => {
+router.get('/joyz-store/category/:category', (req, res) => {
 
     let categorySlug = req.params.category;
-    
-    Category.findOne({slug: categorySlug}, (err) => {
-        Product.find({category: categorySlug}, (err, products) => {
-            if(err) {
-                res.status(500).json({ message: err.message });
-            } else {
-                res.render('cat_products', {
-                    title: req.params.category,
-                    products: products
-                })
-            }     
+
+        Category.findOne({slug: categorySlug}, (err) => {
+            Product.find({category: categorySlug}, (err, products) => {
+                if(err) {
+                    res.status(500).json({ message: err.message });
+                } else {
+                    res.render('cat_products', {
+                        title: req.params.category.toUpperCase(),
+                        products: products
+                    })
+                }     
+            })
         })
-    })
+    
 });
 
 module.exports = router;

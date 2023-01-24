@@ -130,7 +130,8 @@ app.use('/admin/products', adminProducts);
 app.use('/products', products);
 app.use('/cart', cart);
 app.use('/user', user);
-app.use('/home', index);
+app.use('/home/product', index);
+app.use('/', index);
 
 // displaying 404 page if the route does not exist.
 app.use((req, res) => {
