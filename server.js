@@ -57,12 +57,19 @@ app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
 //Express session
-app.use(session({
-	secret: 'mysecretsessionkey',
-	resave: true,
-	saveUninitialized: true,
-	cookie : { secure: true }
-}));
+const sess = {
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+    cookie : {}
+}
+
+if(app.get('env') === 'production') {
+    app.set('trust proxy')
+    sess.cookie.secure = true
+}
+
+app.use(session(sess));
 
 //Express validator middleware
 app.use(ExpressValidator({

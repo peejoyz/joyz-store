@@ -14,7 +14,7 @@ router.get('/add/:product', (req, res) => {
             console.log(err);
 
         //check if session cart is undefined : product not in cart
-        if (typeof req.session.cart == "undefined") {
+        if (typeof req.session.cart === "undefined") {
             req.session.cart = [];
             //push product to cart
             req.session.cart.push({
@@ -61,7 +61,7 @@ router.get('/add/:product', (req, res) => {
 router.get('/checkout', (req, res) => {
 
     //the cart should not display if it has been cleared with action remove
-    if (req.session.cart && req.session.cart.length == 0) {
+    if (req.session.cart && req.session.cart.length === 0) {
         delete req.session.cart;
         res.redirect('/cart/checkout');
     } else {
