@@ -11,6 +11,11 @@ $ (function (){
                 return false;
         });
 
+        $('a.category_').on('click', function (e) {
+            e.preventDefault()
+            $.get('')
+        });
+
         if($("[data-fancybox]").length) {
             $("[data-fancybox]").fancybox();
         }; 

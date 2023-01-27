@@ -23,7 +23,7 @@ const connectDB = async () => {
       console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
       console.log(error);
-      process.exit(1);
+    //   process.exit(1);
     }
   }
 
@@ -41,12 +41,17 @@ app.locals.errors = null;
 let Category = require('./models/category');
 
 // Get all categories to pass to header.ejs
-Category.find(function (err, categories) {
-    if (err) {
-        console.log(err);
-    } else {
-        app.locals.categories = categories;
+Category.find (function (err, categories) {
+    try {
+        if (err) {
+            console.log(err);
+        } else {
+            app.locals.categories = categories;
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+   
 });
 
 //express fileupload middleware
@@ -57,12 +62,19 @@ app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
 //Express session
-app.use(session({
-    secret: 'mysecretsessionkey',
-	resave: true,
-	saveUninitialized: true,
-    // cookie : { secure: true }
-}));
+const sess = {
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {}
+}
+
+if(app.get('env') === 'production') {
+    app.set('trust proxy', 1)
+    sess.cookie.secure = true
+}
+
+app.use(session(sess));
 
 //Express validator middleware
 app.use(ExpressValidator({

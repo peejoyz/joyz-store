@@ -305,9 +305,9 @@ router.get('/home/discount-sixty', (req, res) =>{
     })
 });
 
-router.get('/joyz-store/category/:category', (req, res) => {
+router.get('/joyz-store/category/:category', async (req, res) => {
 
-    let categorySlug = req.params.category;
+    let categorySlug = await req.params.category;
 
         Category.findOne({slug: categorySlug}, (err) => {
             Product.find({category: categorySlug}, (err, products) => {
