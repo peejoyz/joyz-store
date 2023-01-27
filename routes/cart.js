@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../config/auth');
 
 //Get the Product Model
 let Product = require("../models/product");
@@ -67,7 +66,7 @@ router.get('/checkout', (req, res) => {
     } else {
         res.render('checkout', {
             title: 'checkout',
-            cart: req.session.cart,
+            cart: req.session.cart
         });
     }
 })

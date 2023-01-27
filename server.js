@@ -13,6 +13,8 @@ const passport = require('passport');
 
 const app = express();
 
+const port = process.env.port || 7000;
+
 mongoose.set('strictQuery', false);
 
 const connectDB = async () => {
@@ -140,8 +142,6 @@ app.use((req, res) => {
         title: 'Page not Found'
     });
 });
-
-let port = process.env.port || 7000;
 
 //Connect to the database before listening
 connectDB().then(() => {
