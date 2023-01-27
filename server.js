@@ -41,17 +41,12 @@ app.locals.errors = null;
 let Category = require('./models/category');
 
 // Get all categories to pass to header.ejs
-Category.find (function (err, categories) {
-    try {
-        if (err) {
-            console.log(err);
-        } else {
-            app.locals.categories = categories;
-        }
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-   
+Category.find(function (err, categories) {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.categories = categories;
+    }   
 });
 
 //express fileupload middleware
@@ -64,8 +59,8 @@ app.use(bodyParser.json());
 //Express session
 const sess = {
     secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {}
 }
 
