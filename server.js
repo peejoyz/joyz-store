@@ -60,7 +60,7 @@ app.use(bodyParser.json());
 const sess = {
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {}
 }
 
