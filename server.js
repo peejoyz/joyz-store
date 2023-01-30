@@ -59,8 +59,6 @@ app.use(bodyParser.json());
 //Express session
 app.use(session({
 	secret: ['veryimportancesecret', 'notsoimportantsecret', 'highlyprobablysecret'],
-	resave: false,
-    proxy: true,
     name:"secretname",
 	cookie : {
         secure: true,
