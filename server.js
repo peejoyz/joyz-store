@@ -61,34 +61,17 @@ app.use(session({
 	secret: 'mysecretsessionkey',
 	resave: false,
 	saveUninitialized: true,
+    proxy: true,
+    name:'MyCoolWebappCookieName',
 	cookie : {
         secure: true,
-        maxAge: 1000*60*60*48,
+        httpOnly: false,
+        maxAge: 1000 * 60 * 60 * 48,
         sameSite: 'none'
      }
 }));
 
-// const sess = {
-//     secret: 'mysessionsecret',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie : {
-//         httpOnly: true,
-//         secure: true,
-//         maxAge: 1000*60*60*48,
-//         sameSite: 'none'
-//     }
-// }
 
-// if(app.get('env') === 'production') {
-//     // app.set('trust proxy')
-//     sess.cookie.secure = true,
-//     sess.cookie.httpOnly = false,
-//     sess.cookie.maxAge = 1000 * 60 * 60 * 48,
-//     sess.cookie.sameSite = 'none'
-// }
-
-// app.use(session(sess));
 
 //Express validator middleware
 app.use(ExpressValidator({
