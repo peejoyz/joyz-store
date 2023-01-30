@@ -59,10 +59,9 @@ app.use(bodyParser.json());
 //Express session
 app.use(session({
 	secret: 'mysecretsessionkey',
-	resave: true,
+	resave: false,
 	saveUninitialized: true,
 	cookie : {
-        httpOnly: true,
         secure: true,
         maxAge: 1000*60*60*48,
         sameSite: 'none'
