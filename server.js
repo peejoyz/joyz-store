@@ -58,15 +58,18 @@ app.use(bodyParser.json());
 
 //Express session
 const sess = {
-    secret: 'keyboard cat',
-    resave: true,
+    secret: 'mysessionsecret',
+    resave: false,
     saveUninitialized: true,
     cookie : {}
 }
 
 if(app.get('env') === 'production') {
     app.set('trust proxy')
-    sess.cookie.secure = true
+    sess.cookie.secure = true,
+    sess.cookie.httpOnly = false,
+    sess.cookie.maxAge = 1000 * 60 * 60 * 48,
+    sess.cookie.sameSite = 'none'
 }
 
 app.use(session(sess));
