@@ -58,16 +58,15 @@ app.use(bodyParser.json());
 
 //Express session
 app.use(session({
-	secret: 'mysecretsessionkey',
+	secret: ['veryimportancesecret', 'notsoimportantsecret', 'highlyprobablysecret'],
 	resave: false,
-	saveUninitialized: true,
     proxy: true,
-    name:'MyCoolWebappCookieName',
+    name:"secretname",
 	cookie : {
         secure: true,
-        httpOnly: false,
-        maxAge: 1000 * 60 * 60 * 48,
-        sameSite: 'none'
+        httpOnly: true,
+        maxAge: 600000,
+        sameSite: true
      }
 }));
 
