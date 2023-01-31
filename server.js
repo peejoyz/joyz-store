@@ -57,25 +57,20 @@ app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
 //Express session
-const sess = {
-    secret: 'keyboard cat',
-    resave: false,
-    saveUnitialized: true,
-    cookie: {}
-}
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
-if(app.get('env') === 'production') {
-    app.set('trust proxy')
-    sess.cookie.secure = true,
-    sess.cookie.MaxAge = 600000,
-    sess.cookie.sameSite = 'none'
-}
-
-app.use(session(sess));
-        // name: 'secretname',
-        // secure: true,
-        // maxAge: 600000,
-        // sameSite: 'none'
+// app.set('')
+app.use(session({
+  name: 'session',
+  keys: ['key1', 'key2'],
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    domain: 'example.com',
+    path: '/',
+    expires: expiryDate
+  }
+}))
 
 //Express validator middleware
 app.use(ExpressValidator({
