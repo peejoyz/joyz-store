@@ -66,7 +66,9 @@ const sess = {
 
 if(app.get('env') === 'production') {
     app.set('trust proxy')
-    sess.cookie.secure = true
+    sess.cookie.secure = true,
+    sess.cookie.MaxAge = 600000,
+    sess.cookie.sameSite = 'none'
 }
 
 app.use(session(sess));
