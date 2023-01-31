@@ -58,23 +58,16 @@ app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
 //Express session
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 's3Cur3',
-  name: 'sessionId'
-}))
-
-
-const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-
-app.use(cookieSession({  
-  name: 'session',
-  keys: ['key1', 'key2'],
+  name: 'sessionId',
+  resave: false,
+  saveUnitialized: true,
   cookie: {
     secure: true,
     httpOnly: true,
-    domain: 'joyz-store.cyclic.app',
-    path: '/',
     expires: expiryDate
   }
 }))
