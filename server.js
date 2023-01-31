@@ -59,7 +59,7 @@ app.use(bodyParser.json());
 //Express session
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
-// app.set('')
+app.set('trust proxy', 1)
 app.use(session({
   secret: 's3Cur3',  
   name: 'sessionId',
