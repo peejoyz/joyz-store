@@ -60,11 +60,11 @@ app.use(bodyParser.json());
 app.use(session({
 	secret: ['veryimportancesecret', 'notsoimportantsecret', 'highlyprobablysecret'],
     name:"secretname",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
 	cookie : {
         secure: true,
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 600000,
         sameSite: 'none'
      }
