@@ -59,15 +59,14 @@ app.use(bodyParser.json());
 //Express session
 app.use(session({
 	secret: 'veryimportancesecret',
-    name: 'secretname',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-	cookie : {
-        secure: true,
-        maxAge: 600000,
-        sameSite: 'none'
-     }
+	cookie : {secure: true}
 }));
+        // name: 'secretname',
+        // secure: true,
+        // maxAge: 600000,
+        // sameSite: 'none'
 
 //Express validator middleware
 app.use(ExpressValidator({
