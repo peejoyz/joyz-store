@@ -61,12 +61,13 @@ const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
 // app.set('')
 app.use(session({
-  name: 'session',
+  secret: 's3Cur3',  
+  name: 'sessionId',
   keys: ['key1', 'key2'],
   cookie: {
     secure: true,
     httpOnly: true,
-    domain: 'example.com',
+    domain: 'joyz-store.cyclic.app',
     path: '/',
     expires: expiryDate
   }
