@@ -58,8 +58,8 @@ app.use(bodyParser.json());
 
 //Express session
 app.use(session({
-	secret: veryimportancesecret,
-    name:"secretname",
+	secret: 'veryimportancesecret',
+    name: 'secretname',
     resave: false,
     saveUninitialized: true,
 	cookie : {
