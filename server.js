@@ -7,6 +7,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cookieSession = require('cookie-session');
 const ExpressValidator = require('express-validator');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
@@ -57,12 +58,17 @@ app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
 //Express session
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 's3Cur3',
+  name: 'sessionId'
+}))
+
+
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 
-app.set('trust proxy', 1)
-app.use(session({
-  secret: 's3Cur3',  
-  name: 'sessionId',
+app.use(cookieSession({  
+  name: 'session',
   keys: ['key1', 'key2'],
   cookie: {
     secure: true,
