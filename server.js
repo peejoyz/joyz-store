@@ -58,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
 
 //Express session
-const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+// const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: 's3Cur3',
@@ -68,7 +68,8 @@ app.use(session({
   cookie: {
     secure: true,
     httpOnly: true,
-    expires: expiryDate
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: 'none' 
   }
 }))
 
