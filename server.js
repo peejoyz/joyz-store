@@ -59,7 +59,7 @@ app.use(bodyParser.json());
 //Express session
 const sess = {
     secret: 'keyboard cat',
-    resave: true,
+    resave: false,
     saveUnitialized: true,
     cookie: {}
 }
