@@ -54,17 +54,17 @@ Category.find(function (err, categories) {
 app.use(fileUpload());
 
 //bodyParser middleware
-app.use(bodyParser.urlencoded({ extended : false }));
+app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
 //Express session
 // const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  key: 'cart',
-  secret: 'User secret Object Id',
-  name: 'sessionId',
-  resave: true,
+  "key": "cart",
+  "secret": 'User secret Object Id',
+  "name": "ObjectId",
+  "resave": true,
   saveUnitialized: true,
   cookie: {
     secure: true,
