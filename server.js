@@ -61,7 +61,8 @@ app.use(bodyParser.json());
 // const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-  secret: 's3Cur3',
+  key: 'cart',
+  secret: 'User secret Object Id',
   name: 'sessionId',
   resave: true,
   saveUnitialized: true,
