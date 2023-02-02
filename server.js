@@ -65,7 +65,7 @@ app.use(session({
   "secret": 'User secret Object Id',
   "name": "ObjectId",
   "resave": true,
-  saveUnitialized: true,
+  saveUnitialized: false,
   cookie: {
     secure: true,
     httpOnly: true,
