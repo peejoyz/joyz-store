@@ -58,7 +58,7 @@ app.use(bodyParser.json());
 
 //Express session
 // const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-app.set('trust proxy', 1) // trust first proxy
+// trust first proxy
 
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
@@ -71,6 +71,11 @@ app.use(session({
     sameSite: 'none'
   }
 }))
+
+if (app.get('env') === 'production') {
+    app.set('trust proxy') // trust first proxy
+    // sess.cookie.secure = true // serve secure cookies
+  }
 
 //Express validator middleware
 app.use(ExpressValidator({
@@ -123,12 +128,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('*', (req, res, next) => {
-    if(req.session) {
-        res.locals.cart = req.session.cart;
-    } else {
-        console.log('sorry');
-    }
-    
+    res.locals.cart = req.session.cart;    
     res.locals.user = req.user || null;
     next()
 })
