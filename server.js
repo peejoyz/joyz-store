@@ -58,16 +58,17 @@ app.use(bodyParser.json());
 
 //Express session
 // const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
-// app.set('trust proxy', 1) // trust first proxy
+app.set('trust proxy', 1) // trust first proxy
 
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
   secret: 'keyboard cat',  
   resave: false,
-  saveUnitialized: true,
+  saveUninitialized: true,  
   cookie: {
     secure: true,
-    maxAge : oneDay
+    maxAge : oneDay,
+    sameSite: 'none'
   }
 }))
 
