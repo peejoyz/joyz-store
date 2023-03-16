@@ -123,7 +123,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('*', (req, res, next) => {
-    res.locals.cart = req.session.cart;
+    if(req.session) {
+        res.locals.cart = req.session.cart;
+    } else {
+        console.log('sorry');
+    }
+    
     res.locals.user = req.user || null;
     next()
 })
