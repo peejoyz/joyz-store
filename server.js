@@ -1,6 +1,6 @@
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config()
-  }
+}
 
 const express = require('express');
 const path = require('path');
@@ -25,7 +25,7 @@ const connectDB = async () => {
       console.log(error);
     //   process.exit(1);
     }
-  }
+}
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -63,13 +63,9 @@ app.set('trust proxy', 1) // trust first proxy
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
   secret: 'keyboard cat',  
-  resave: false,
+  resave: true,
   saveUninitialized: true,  
-  cookie: {
-    secure: true,
-    maxAge : oneDay,
-    sameSite: 'none'
-  }
+  cookie: true
 }))
 
 //Express validator middleware
