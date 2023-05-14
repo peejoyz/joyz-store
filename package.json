@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cyclic.sh/session-store": "0.0.17",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "connect-flash": "^0.1.1",

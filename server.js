@@ -7,6 +7,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const { CyclicSessionStore } = require("@cyclic.sh/session-store");
 const ExpressValidator = require('express-validator');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
@@ -60,15 +61,24 @@ app.use(bodyParser.json());
 // const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.set('trust proxy', 1) // trust first proxy
 
+const options = {
+    table: {
+      name: process.env.CYCLIC_DB,
+    },
+    keepExpired: false, 
+    touchInterval: 30000, 
+    ttl: 86400000 
+};
 // const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
-  secret: 'keyboard_cat',  
-  resave: true,
-  saveUninitialized: true,  
-  cookie: {
-    secure: true,
-    maxAge: 24 * 60 * 60 * 1000
-  }
+    store: new CyclicSessionStore(options),
+    secret: 'keyboard_cat',  
+    resave: true,
+    saveUninitialized: true,  
+//   cookie: {
+//     secure: true,
+//     maxAge: 24 * 60 * 60 * 1000
+//   }
 }))
 
 //Express validator middleware
@@ -122,10 +132,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('*', (req, res, next) => {
-    if(req.session.keyboard_cat){
-        res.locals.cart = req.session.cart;
-    }
-    res.locals.user = req.user || null;
+    res.locals.cart = req.session.cart;  
+    res.locals.user = req.user || null; 
     next()
     
 })
