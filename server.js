@@ -63,12 +63,12 @@ app.set('trust proxy', 1) // trust first proxy
 // const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
   secret: 'keyboard_cat',  
-  resave: false,
+  resave: true,
   saveUninitialized: true,  
-  cookie: {
-    secure: true,
-    maxAge: 24 * 60 * 60 * 1000
-  }
+//   cookie: {
+//     secure: true,
+//     maxAge: 24 * 60 * 60 * 1000
+//   }
 }))
 
 //Express validator middleware
@@ -124,9 +124,10 @@ app.use(passport.session());
 app.get('*', (req, res, next) => {
     if(req.session.keyboard_cat){
         res.locals.cart = req.session.cart;
-        res.locals.user = req.user || null;
     }
+    res.locals.user = req.user || null;
     next()
+    
 })
 
 const index = require('./routes/index');

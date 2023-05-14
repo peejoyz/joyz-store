@@ -6,54 +6,56 @@ let Product = require("../models/product");
 
 //Add product to cart
 router.get('/add/:product', (req, res) => {
+    // if(req.session.keyboard_cat) {
+        let slug = req.params.product;
 
-    let slug = req.params.product;
+        Product.findOne({ slug: slug }, (err, p) => {
+            if (err)
+                console.log(err);
 
-    Product.findOne({ slug: slug }, (err, p) => {
-        if (err)
-            console.log(err);
-
-        //check if session cart is undefined : product not in cart
-        if (typeof req.session.cart == "undefined") {
-            req.session.cart = [];
-            //push product to cart
-            req.session.cart.push({
-                title: slug,
-                qty: 1,
-                price: parseFloat(p.price).toFixed(2),
-                discount_price: parseFloat(p.discount_price).toFixed(2),
-                image: '/product_images/' + p._id + '/' + p.image
-            })
-            //if the cart exist 
-        } else {
-            let cart = req.session.cart;
-            let newItem = true;
-
-            //looping through cart array : incrementing
-            for (let i = 0; i < cart.length; i++) {
-                if (cart[i].title == slug) {
-                    cart[i].qty++
-                    newItem = false;
-                    break;
-                }
-            }
-
-            //check if newItem is true, if it is true then add a new item
-            if (newItem) {
-                //adding a new item
-                cart.push({
+            //check if session cart is undefined : product not in cart
+            if (typeof req.session.cart == "undefined") {
+                req.session.cart = [];
+                //push product to cart
+                req.session.cart.push({
                     title: slug,
                     qty: 1,
                     price: parseFloat(p.price).toFixed(2),
                     discount_price: parseFloat(p.discount_price).toFixed(2),
                     image: '/product_images/' + p._id + '/' + p.image
                 })
+                //if the cart exist 
+            } else {
+                let cart = req.session.cart;
+                let newItem = true;
+
+                //looping through cart array : incrementing
+                for (let i = 0; i < cart.length; i++) {
+                    if (cart[i].title == slug) {
+                        cart[i].qty++
+                        newItem = false;
+                        break;
+                    }
+                }
+
+                //check if newItem is true, if it is true then add a new item
+                if (newItem) {
+                    //adding a new item
+                    cart.push({
+                        title: slug,
+                        qty: 1,
+                        price: parseFloat(p.price).toFixed(2),
+                        discount_price: parseFloat(p.discount_price).toFixed(2),
+                        image: '/product_images/' + p._id + '/' + p.image
+                    })
+                }
             }
-        }
-        //console.log(req.session.cart);
-        req.flash('success', 'Product added to cart');
-        res.redirect('back');
-    })
+            //console.log(req.session.cart);
+            req.flash('success', 'Product added to cart');
+            res.redirect('back');
+        })
+    // }
+    // next()
 
 });
 
