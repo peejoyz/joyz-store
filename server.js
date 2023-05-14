@@ -75,10 +75,9 @@ app.use(session({
     secret: 'keyboard_cat',  
     resave: true,
     saveUninitialized: true,  
-//   cookie: {
-//     secure: true,
-//     maxAge: 24 * 60 * 60 * 1000
-//   }
+    cookie: {
+    secure: true
+  }
 }))
 
 //Express validator middleware
