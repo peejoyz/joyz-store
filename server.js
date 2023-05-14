@@ -62,8 +62,8 @@ app.set('trust proxy', 1) // trust first proxy
 
 // const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
-  secret: 'keyboard cat',  
-  resave: true,
+  secret: 'keyboard_cat',  
+  resave: false,
   saveUninitialized: true,  
   cookie: {
     secure: true,
@@ -122,8 +122,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('*', (req, res, next) => {
-    res.locals.cart = req.session.cart;
-    res.locals.user = req.user || null;
+    if(req.session.keyboard_cat){
+        res.locals.cart = req.session.cart;
+        res.locals.user = req.user || null;
+    }
     next()
 })
 
