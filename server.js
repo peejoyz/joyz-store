@@ -60,12 +60,15 @@ app.use(bodyParser.json());
 // const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
 app.set('trust proxy', 1) // trust first proxy
 
-const oneDay = 1000 * 60 * 60 * 24;
+// const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
   secret: 'keyboard cat',  
   resave: true,
   saveUninitialized: true,  
-  cookie: true
+  cookie: {
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
 }))
 
 //Express validator middleware
