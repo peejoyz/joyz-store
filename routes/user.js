@@ -86,11 +86,11 @@ router.get('/login', function(req, res) {
 //Post Login
 router.post('/login', function(req, res, next) {
     
-        passport.authenticate('local', {
-            successRedirect: '/',
-            failureRedirect: '/user/login',
-            failureFlash: true
-        })(req, res, next);
+    passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/user/login',
+        failureFlash: true
+    })(req, res, next);
     
 })
 

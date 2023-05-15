@@ -63,7 +63,7 @@ app.set('trust proxy', 1) // trust first proxy
 
 const options = {
     table: {
-      name: process.env.CYCLIC_DB,
+      name: process.env.CYCLIC_DB
     },
     keepExpired: false, 
     touchInterval: 30000, 
@@ -75,9 +75,9 @@ app.use(session({
     secret: 'keyboard_cat',  
     resave: true,
     saveUninitialized: true,  
-    cookie: {
-    secure: true
-  }
+//     cookie: {
+//     secure: true
+//   }
 }))
 
 //Express validator middleware
