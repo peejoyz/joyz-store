@@ -12,15 +12,10 @@ module.exports = function(passport) {
                 return done(null, false, {message: 'No user found'});
             }
 
-            bcrypt.compare(password, user.password, function(err, isMatch) {
+            bcrypt.compare(password.toString(), user.password.toString(), function(err, isMatch) {
                 if(err) 
                     // console.log(err);
                     return done(err);
-                // if(isMatch) {
-                //     return done(null, user);
-                // } else {
-                //     return done(null, false, {message: 'The credentials you entered is incorrect.'});
-                // }
                 if(!isMatch) 
                     return done(null, false, {message: 'The credentials you entered is incorrect.'});
                     return done(null, user);

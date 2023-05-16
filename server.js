@@ -58,7 +58,7 @@ app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
 //Express session
-// const expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1 hour
+
 app.set('trust proxy', 1) // trust first proxy
 
 const options = {
@@ -69,7 +69,6 @@ const options = {
     touchInterval: 30000, 
     ttl: 86400000 
 };
-// const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
     store: new CyclicSessionStore(options),
     secret: 'keyboard_cat',  
