@@ -58,9 +58,7 @@ app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
 //Express session
-
 app.set('trust proxy', 1) // trust first proxy
-
 const options = {
     table: {
       name: process.env.CYCLIC_DB
@@ -74,9 +72,9 @@ app.use(session({
     secret: 'keyboard_cat',  
     resave: true,
     saveUninitialized: true,  
-//     cookie: {
-//     secure: true
-//   }
+    cookie: {
+        secure: true
+    }
 }))
 
 //Express validator middleware
@@ -153,7 +151,6 @@ app.use('/', index);
 
 // displaying 404 page if the route does not exist.
 app.use((req, res) => {
-    // res.status(404).sendFile(path.join(rootDir, 'views', '404.html'));
     res.status(404).render('404.ejs', {
         title: 'Page not Found'
     });
