@@ -57,7 +57,6 @@ app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
-//Express session
 app.set('trust proxy', 1) // trust first proxy
 const options = {
     table: {
@@ -67,14 +66,15 @@ const options = {
     touchInterval: 30000, 
     ttl: 86400000 
 };
+//Express session
 app.use(session({
     store: new CyclicSessionStore(options),
     secret: 'keyboard_cat',  
     resave: true,
     saveUninitialized: true,  
-    cookie: {
-        secure: true
-    }
+    // cookie: {
+    //     secure: true
+    // }
 }))
 
 //Express validator middleware
@@ -129,9 +129,8 @@ app.use(passport.session());
 
 app.get('*', (req, res, next) => {
     res.locals.cart = req.session.cart;  
-    res.locals.user = req.user || null; 
-    next()
-    
+    res.locals.user =  JSON.stringify(req.user) || null; 
+    next()  
 })
 
 const index = require('./routes/index');
