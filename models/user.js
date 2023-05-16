@@ -20,7 +20,7 @@ const UserSchema = new Schema({
     },
 
     password : {
-        type: String,
+        type: DataTypes.STRING(255),
         required: true
     },
 
