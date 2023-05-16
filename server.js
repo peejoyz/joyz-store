@@ -7,7 +7,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const { CyclicSessionStore } = require("@cyclic.sh/session-store");
+const MongoStore = require('connect-mongo');
+// const { CyclicSessionStore } = require("@cyclic.sh/session-store");
 const ExpressValidator = require('express-validator');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
@@ -24,7 +25,7 @@ const connectDB = async () => {
       console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
       console.log(error);
-    //   process.exit(1);
+      process.exit(1);
     }
 }
 
@@ -58,20 +59,24 @@ app.use(bodyParser.urlencoded({ extended : true }));
 app.use(bodyParser.json());
 
 app.set('trust proxy', 1) // trust first proxy
-const options = {
-    table: {
-      name: process.env.CYCLIC_DB
-    },
-    keepExpired: false, 
-    touchInterval: 30000, 
-    ttl: 86400000 
-};
+// const options = {
+//     table: {
+//       name: process.env.CYCLIC_DB
+//     },
+//     keepExpired: false, 
+//     touchInterval: 30000, 
+//     ttl: 86400000 
+// };
 //Express session
 app.use(session({
-    store: new CyclicSessionStore(options),
+    // store: new CyclicSessionStore(options),
     secret: 'keyboard_cat',  
-    resave: true,
-    saveUninitialized: true,  
+    resave: false,
+    saveUninitialized: false, 
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        touchAfter: 24 * 3600 // time period in seconds
+    }) 
     // cookie: {
     //     secure: true
     // }
@@ -129,7 +134,7 @@ app.use(passport.session());
 
 app.get('*', (req, res, next) => {
     res.locals.cart = req.session.cart;  
-    res.locals.user =  JSON.stringify(req.user) || null; 
+    res.locals.user =  req.user || null; 
     next()  
 })
 
