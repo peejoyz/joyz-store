@@ -1,7 +1,7 @@
 
 # Joyz Store
 
-An Online Shoppin cart website(E-commerce).
+An Online Shopping cart website(E-commerce).
 
 ## Live Preview
 
