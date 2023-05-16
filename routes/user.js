@@ -87,11 +87,6 @@ router.get('/login', function(req, res) {
 router.post('/login', function(req, res, next) {
 
     passport.authenticate('local', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(req.user),
         successRedirect: '/',
         failureRedirect: '/user/login',
         failureFlash: true

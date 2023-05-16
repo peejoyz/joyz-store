@@ -71,15 +71,16 @@ app.set('trust proxy', 1) // trust first proxy
 app.use(session({
     // store: new CyclicSessionStore(options),
     secret: 'keyboard_cat',  
-    resave: false,
-    saveUninitialized: false, 
+    resave: true,
+    saveUninitialized: true, 
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI,
         touchAfter: 24 * 3600 // time period in seconds
-    }) 
-    // cookie: {
-    //     secure: true
-    // }
+    }), 
+    cookie: {
+        secure: true,
+        expires: 86400000
+    }
 }))
 
 //Express validator middleware

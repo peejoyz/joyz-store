@@ -61,7 +61,7 @@ router.get('/add/:product', (req, res) => {
 
 //Get Checkout Page
 router.get('/checkout', (req, res) => {
-
+    
     //the cart should not display if it has been cleared with action remove
     if (req.session.cart && req.session.cart.length == 0) {
         delete req.session.cart;
