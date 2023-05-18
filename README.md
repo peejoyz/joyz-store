@@ -16,15 +16,16 @@ An Online Shopping cart website(E-commerce).
 - User authentication with passport
 - Ability to share product
 - sorting by price and discount price
+- Ability to search for a product
+- Getting products by category
 
 ## Technologies Used
 
 - HTML
 - CSS
 - JAVASCRIPT
-- NODEJS
-- MONGODB
 - EJS
+- MONGODB
 - EXPRESS
 - NODEJS
 
