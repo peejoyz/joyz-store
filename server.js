@@ -7,18 +7,16 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const MongoStore = require('connect-mongo');
-// const { CyclicSessionStore } = require("@cyclic.sh/session-store");
 const ExpressValidator = require('express-validator');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
 
 const app = express();
-
 const port = process.env.port || 7000;
 
 mongoose.set('strictQuery', false);
-
 const connectDB = async () => {
     try {
       const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -28,6 +26,9 @@ const connectDB = async () => {
       process.exit(1);
     }
 }
+
+//Passport Config
+require('./config/passport')(passport);
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -55,33 +56,32 @@ Category.find(function (err, categories) {
 app.use(fileUpload());
 
 //bodyParser middleware
-app.use(bodyParser.urlencoded({ extended : true }));
+app.use(bodyParser.urlencoded({ extended : false }));
 app.use(bodyParser.json());
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser("cookie-parser-secret"));
 app.set('trust proxy', 1) // trust first proxy
-// const options = {
-//     table: {
-//       name: process.env.CYCLIC_DB
-//     },
-//     keepExpired: false, 
-//     touchInterval: 30000, 
-//     ttl: 86400000 
-// };
 //Express session
 app.use(session({
-    // store: new CyclicSessionStore(options),
-    secret: 'keyboard_cat',  
-    resave: true,
-    saveUninitialized: true, 
+    secret: process.env.secret,  
+    resave: process.env.resave,
+    saveUninitialized: process.env.saveUninitialized, 
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
-        touchAfter: 24 * 3600 // time period in seconds
+        mongoUrl: process.env.MONGO_URI
+        // touchAfter: process.env.touchAfter
     }), 
     cookie: {
-        secure: true,
-        expires: 86400000
+        // secure: process.env.secure,
+        maxAge: 180 * 60 * 1000,
+        secure: true 
     }
 }))
+
+//Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.authenticate('session'));
 
 //Express validator middleware
 app.use(ExpressValidator({
@@ -126,15 +126,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-//Passport Config
-require('./config/passport')(passport);
-
-//Passport Middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.get('*', (req, res, next) => {
-    res.locals.cart = req.session.cart;  
+    res.locals.cart = req.session.cart; 
+    res.locals.session = req.session; 
     res.locals.user =  req.user || null; 
     next()  
 })

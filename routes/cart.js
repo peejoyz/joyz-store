@@ -12,17 +12,16 @@ router.get('/add/:product', (req, res) => {
         Product.findOne({ slug: slug }, (err, p) => {
             if (err)
                 console.log(err);
-
             //check if session cart is undefined : product not in cart
             if (typeof req.session.cart == "undefined") {
                 req.session.cart = [];
                 //push product to cart
-                req.session.cart.push({
+                req.session.cart.push({ 
                     title: slug,
                     qty: 1,
                     price: parseFloat(p.price).toFixed(2),
                     discount_price: parseFloat(p.discount_price).toFixed(2),
-                    image: '/product_images/' + p._id + '/' + p.image
+                    image: '/product_images/' + p._id + '/' + p.image,  
                 })
                 //if the cart exist 
             } else {
@@ -37,20 +36,19 @@ router.get('/add/:product', (req, res) => {
                         break;
                     }
                 }
-
                 //check if newItem is true, if it is true then add a new item
-                if (newItem) {
+                if (newItem) { 
                     //adding a new item
                     cart.push({
                         title: slug,
                         qty: 1,
                         price: parseFloat(p.price).toFixed(2),
                         discount_price: parseFloat(p.discount_price).toFixed(2),
-                        image: '/product_images/' + p._id + '/' + p.image
+                        image: '/product_images/' + p._id + '/' + p.image,
                     })
                 }
             }
-            //console.log(req.session.cart);
+            // console.log(req.session.cart);
             req.flash('success', 'Product added to cart');
             res.redirect('back');
         })
@@ -69,7 +67,7 @@ router.get('/checkout', (req, res) => {
     } else {
         res.render('checkout', {
             title: 'checkout',
-            cart: req.session.cart
+            cart: req.session.cart,
         });
     }
    

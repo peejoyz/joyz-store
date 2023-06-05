@@ -89,10 +89,11 @@
                 <label for="Confirm Password">Confirm Password</label>
                 <input type="password" name="password2" class="form-control" placeholder="Confirm Password">
             </div>
-        
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button type="submit" class="btn btn-primary">Register</button>
         
         </form>
+        
         <br>
         Already have an account ? pls login here <a href="/user/login"> Login</a>
     </div>

@@ -4,6 +4,7 @@ let bcrypt = require('bcryptjs');
 
 module.exports = function(passport) {
     passport.use(new LocalStrategy(function(username, password, done) {
+        //signing in
         User.findOne({username: username}, function(err, user) {
             if(err)
                 //console.log(err);

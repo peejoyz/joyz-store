@@ -96,12 +96,9 @@
                                     </tr>
                                 <% }) %>
                                 <tr>
-                                    <td colspan="6" align="right"><b>Total:</b>
-                                        
+                                    <td class="cart-total-price2" colspan="6" align="right"><b>Total:</b> 
                                         <span class="cart-total-price">$<%= parseFloat(total).toFixed(2) %> </span>
-                                    </td> 
-
-                                    
+                                    </td>    
                                 </tr>
                                 <tr>
                                     <td class="clearcart" colspan="6">
@@ -172,8 +169,7 @@
                 if (!confirm('Are you sure you want to clear cart?'))
                     return false;
             });
-
-        })
+        })   
     </script>
     
 	<%- include('layouts/checkoutfooter') %>

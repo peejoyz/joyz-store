@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-
+const auth = require('../config/auth');
+const isUser = auth.isUser;
 
 //Get Product Model
 let Product = require('../models/product');
-
 //let Category Model
 let Category = require('../models/category');
+//let Order Model
+let Order = require('../models/order');
+
 
 //Search Product
 router.get('/product/product-search', (req, res) => {
@@ -116,20 +119,48 @@ router.get('/store/contact', (req, res) => {
     });
 });
 
-router.get('/home/payment', (req, res) => {
-
+router.get('/home/payment', isUser, (req, res) => {
     res.render('payment', {
         title: 'Joyz Store | Payment',
+        cart: req.session.cart
     });
 });
 
-router.post('/home/payment/card', (req, res) => {
-   
-    delete req.session.cart;
-    
-    req.flash('success', 'Purchase successful.');
-    res.redirect('/cart/checkout')
+router.post('/home/payment/card', isUser, async (req, res) => {
 
+    if (!req.session.cart) {
+        return res.redirect('/cart/checkout');
+    } 
+    let cart = req.session.cart;
+    const stripe = require('stripe')('sk_test_51MPPkRB0QZiULxUV9NtUI1ahGQ8tRF9YaFLfLNXZn2ZkX7UlKHrZLwWZ3Cf3qMR2uhF2JBiR8e6yM98YLCw3s7zA00J3KiTstE');
+  // `source` is obtained with Stripe.js; see https://stripe.com/docs/payments/accept-a-payment-charges#web-create-token
+  const charge = await stripe.charges.create({
+    amount: req.body.total * 100, 
+    currency: 'usd',
+    source: req.body.stripeToken, 
+    description: 'Joyz Store Charge',
+  }, 
+    function(err, charge) {
+        if(err) {
+            req.flash('error', err.message); //err.message produced by stripe
+            return res.redirect('/home/payment');
+        }
+        let order = new Order({
+            user: req.user,
+            cart: cart,
+            address: req.body.address,
+            name: req.body.name,
+            total: req.body.total,
+            paymentId: charge.id
+        })
+        order.save(function(err) {
+            if(err)
+                return console.log(err);
+            req.flash('success', 'Purchase was successful.');
+            delete req.session.cart;
+            res.redirect('/cart/checkout')
+        })  
+    });
 })
 
 // under $200

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="en">
 
 <head>
 	<title><%= title %></title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
-	<meta name="keywords" content="Electro Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"
-	/>
+	<meta name="keywords" content="joyz-store"/>
 	<script>
 		addEventListener("load", function () {
 			setTimeout(hideURLbar, 0);
@@ -67,11 +66,20 @@
 		button {
 			border: none;
 		}
+		.payment-errors{
+			color: #58151c;
+			background: #f8d7da;
+			border-color: #f1aeb5;
+			border: 2px solid #f1aeb5;
+			padding: 1em;
+			display: none;
+		}
+
 	</style>
 
 </head>
-
 <body>
+	<script src="/js/jquery-2.2.3.min.js"></script>
 	<!-- top-header -->
 	<div class="agile-main-top">
 		<div class="container-fluid">
@@ -245,60 +253,78 @@
             <!--Horizontal Tab-->
             <div id="parentHorizontalTab">
                 <ul class="resp-tabs-list hor_1">
-                    <li>Cash on delivery (COD)</li>
                     <li>Credit/Debit</li>
                 </ul>
                 <div class="resp-tabs-container hor_1">
-
                     <div>
-                        <div class="vertical_post check_box_agile">
-                            <h5>COD</h5>
-                            <div class="checkbox">
-                                <div class="check_box_one cashon_delivery">
-                                    <label class="anim">
-                                        <input type="checkbox" class="checkbox">
-                                        <span> We also accept Credit/Debit card on delivery. Please Check with the agent.</span>
-                                    </label>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <form action="/home/payment/card" method="post" class="pay">
+						<div class="payment-errors"></div>
+                        <form action="/home/payment/card" method="post" class="pay" id="checkout-form">
                             <div class="creditly-wrapper wthree, w3_agileits_wrapper">
                                 <div class="credit-card-wrapper">
+									<% if(typeof cart !== "undefined") { %>
                                     <div class="first-row form-group">
                                         <div class="controls">
-                                            <label class="control-label">Name on Card</label>
-                                            <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith" required>
+											<% let total = 0; %>
+											<% cart.forEach(function(product) { %>
+												<% let sub = parseFloat(product.qty * product.price).toFixed(2) %>
+                                    
+												<% let sub2 = parseFloat(product.qty * product.discount_price).toFixed(2) %>
+
+												<% if(sub && sub2 === "NaN") { %>
+													<% total += +sub, sub2 %>
+												<% } else { %>
+													<% total += +sub2 %>
+												<% } %>
+											<% }) %>
+												<input id="totall" name="total" type="hidden" value="<%= parseFloat(total).toFixed(2) %>">
+												<h4>Your Total : $<%= parseFloat(total).toFixed(2) %> </h4>
+                                            <label class="control-label">Card Holder Name</label>
+                                            <input class="billing-address-name form-control" id="card-name"  type="text" placeholder="John Smith" required>
                                         </div>
+
+										<div class="controls">
+											<label class="control-label">Name</label>
+											<input class="billing-address-name form-control" id="name" type="text" name="name"placeholder="John Smith" required>
+										</div>
+
                                         <div class="w3_agileits_card_number_grids my-3">
                                             <div class="w3_agileits_card_number_grid_left">
                                                 <div class="controls">
-                                                    <label class="control-label">Card Number</label>
-                                                    <input class="number credit-card-number form-control" type="text" name="number" inputmode="numeric" autocomplete="cc-number"
+                                                    <label class="control-label">Credit Card Number</label>
+                                                    <input class="number credit-card-number form-control" type="text" id="card-number" name="number" inputmode="numeric" autocomplete="cc-number"
                                                         autocompletetype="cc-number" x-autocompletetype="cc-number" placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;" required>
+                                                </div>
+                                            </div>
+											<div class="w3_agileits_card_number_grid_left">
+                                                <div class="controls">
+                                                    <label class="control-label">Address</label>
+                                                    <input class="billing-address-name form-control" type="text" id="address" name="address" required>
                                                 </div>
                                             </div>
                                             <div class="w3_agileits_card_number_grid_right mt-2">
                                                 <div class="controls">
                                                     <label class="control-label">CVV</label>
-                                                    <input class="security-code form-control" Â· inputmode="numeric" type="text" name="security-code" placeholder="&#149;&#149;&#149;" required>
+                                                    <input class="security-code form-control" Â· inputmode="numeric" id="card-cvc" type="text" name="security-code" placeholder="&#149;&#149;&#149;" required>
                                                 </div>
                                             </div>
                                             <div class="clear"> </div>
                                         </div>
                                         <div class="controls">
-                                            <label class="control-label">Expiration Date</label>
-                                            <input class="expiration-month-and-year form-control" type="text" name="expiration-month-and-year" placeholder="MM / YY" required>
+                                            <label class="control-label">Expiration Month</label>
+                                            <input class="form-control" type="text" id="card-expiry-month" name="expiration-month-and-year" placeholder="MM" required>
+                                        </div>
+										<div class="controls">
+                                            <label class="control-label">Expiration Year</label>
+                                            <input class="form-control" id="card-expiry-year" type="text" id="card-expiry-year" name="expiration-month-and-year" placeholder="YY" required>
                                         </div>
                                     </div>
-                                    <button type="submit" class="subpay">
-                                        <span>Make a payment</span>
-                                    </button>
+									<% } %>
+                                    
                                 </div>
                             </div>
+							<button type="submit" class="subpay">
+								<span>Make a payment</span>
+							</button>
                         </form>
 
                     </div>
@@ -507,7 +533,7 @@
 </div>
 <!-- //copyright -->
 
-<script src="/js/jquery-2.2.3.min.js"></script>
+
 	<!-- //jquery -->
 
 	<!-- nav smooth scroll -->
@@ -639,7 +665,9 @@
 
 	<!-- for bootstrap working -->
 	<script src="/js/bootstrap.js"></script>
-	<!-- //for bootstrap working -->
 	<!-- //js-files -->
+	<script src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="/js/checkout.js"></script>
+	
 
  
