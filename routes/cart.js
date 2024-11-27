@@ -6,9 +6,8 @@ let Product = require("../models/product");
 
 //Add product to cart
 router.get('/add/:product', (req, res) => {
-    // if(req.session.keyboard_cat) {
+    // if(res.locals.user) {
         let slug = req.params.product;
-
         Product.findOne({ slug: slug }, (err, p) => {
             if (err)
                 console.log(err);
@@ -51,8 +50,9 @@ router.get('/add/:product', (req, res) => {
             // console.log(req.session.cart);
             req.flash('success', 'Product added to cart');
             res.redirect('back');
-        })
+        })  
     // }
+
     // next()
 
 });

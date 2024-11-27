@@ -1,6 +1,6 @@
 exports.isUser = function(req, res, next) {
     if(req.isAuthenticated()) {
-        next();
+        return next();
     } else {
         req.session.originalUrl = req.url; //for redirecting.
         req.flash('danger', 'Please log in.');
@@ -11,7 +11,7 @@ exports.isUser = function(req, res, next) {
 
 exports.isAdmin = function(req, res, next) {
     if(req.isAuthenticated() && res.locals.user.admin == 1) {
-        next();
+        return next();
     } else {
         req.session.originalUrl = req.url; //for redirecting.
         req.flash('danger', 'Please log in as admin.');

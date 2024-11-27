@@ -12,9 +12,10 @@ const MongoStore = require('connect-mongo');
 const ExpressValidator = require('express-validator');
 const fileUpload = require('express-fileupload');
 const passport = require('passport');
-
+const auth = require('./config/auth.js');
+const isUser = auth.isUser;
 const app = express();
-const port = process.env.port || 7000;
+const port = process.env.port || 8000;
 
 mongoose.set('strictQuery', false);
 const connectDB = async () => {
@@ -28,7 +29,7 @@ const connectDB = async () => {
 }
 
 //Passport Config
-require('./config/passport')(passport);
+require('./config/passport.js')(passport);
 
 //view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -41,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.locals.errors = null;
 
 // Get Category Model 
-let Category = require('./models/category');
+let Category = require('./models/category.js');
 
 // Get all categories to pass to header.ejs
 Category.find(function (err, categories) {
@@ -73,15 +74,19 @@ app.use(session({
     }), 
     cookie: {
         // secure: process.env.secure,
-        maxAge: 180 * 60 * 1000,
-        secure: true 
+        // maxAge: 180 * 60 * 1000,
+        // secure: true 
+        maxAge: null,
+        // path: '/'
     }
 }))
+
+// app.use(express.session({cookie: {path: '/', httpOnly:true, maxAge: null}, secret:'eeuqram'}))
 
 //Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(passport.authenticate('session'));
+// app.use(passport.authenticate('session'));
 
 //Express validator middleware
 app.use(ExpressValidator({
@@ -125,20 +130,38 @@ app.use(function (req, res, next) {
     res.locals.messages = require('express-messages') (req, res);
     next();
 });
+// app.get('*', (req, res, next) => {
+//     res.locals.login = req.isAuthenticated();
+//     res.locals.cart = req.session.cart; 
+//     res.locals.session = req.session; 
+//     res.locals.user =  req.user || null; 
+//     next()  
+ // res.locals.user = req.user || null;
+    // res.locals.user = req.isUser; 
+    // res.locals.user = req.session;
+    // res.locals.user = req.session.cart;
+    // res.locals.user = req.isAuthenticated(); 
+// })
 
 app.get('*', (req, res, next) => {
-    res.locals.cart = req.session.cart; 
-    res.locals.session = req.session; 
-    res.locals.user =  req.user || null; 
-    next()  
+    res.locals.cart = req.session.cart;
+    res.locals.user = req.user || null;
+    next();
 })
 
+// app.use(function(req, res, next) {
+//     res.locals.login = req.isAuthenticated();
+//     res.locals.cart = req.session.cart; 
+//     res.locals.session = req.session; 
+//     res.locals.user =  req.user || null; 
+//     next()
+// })
 const index = require('./routes/index');
 const products = require('./routes/products.js');
 const cart = require('./routes/cart.js');
 const user = require('./routes/user.js');
-const adminCategories = require('./routes/admin_categories');
-const adminProducts = require('./routes/admin_products');
+const adminCategories = require('./routes/admin_categories.js');
+const adminProducts = require('./routes/admin_products.js');
 
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
