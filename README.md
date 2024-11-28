@@ -5,7 +5,7 @@ An Online Shopping cart website(E-commerce).
 
 ## Live Preview
 
-- [Joyz Store](https://joyz-store.cyclic.app/)
+- [Joyz Store](https://joyz-store.onrender.com/)
 
 
 ## Features
